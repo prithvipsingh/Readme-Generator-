@@ -53,7 +53,6 @@ function writeToFile(fileName, data) {}
 function init() {
   inquirer.prompt(questions).then((answers) => {
     api.getUser(answers.gitHub).then(response=>{
-      console.log(response);
       var data = { 
         avatarUrl: response.data.avatar_url,
         description: answers.description,
