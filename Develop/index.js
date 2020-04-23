@@ -1,0 +1,68 @@
+var fs = require("fs");
+var generateMarkdown = require("./utils/generateMarkdown");
+var api = require("./utils/api");
+var inquirer = require("inquirer");
+
+const questions = [
+  
+  {
+    type: "input",
+    name: "gitHub",
+    message: "What is your github user name ?",
+  },
+  {
+    type: "input",
+    name: "projectTitle",
+    message: "What is your project title?",
+  },
+  {
+    type: "input",
+    name: "description",
+    message: "Please explain project description ?",
+  },
+  {
+    type: "input",
+    name: "TableOfcontents",
+    message: "Please enter table of contents ?",
+  },
+  {
+    type: "input",
+    name: "installation",
+    message: "Please enter installation details ?",
+  },
+
+  {
+    type: "input",
+    name: "usage",
+    message: "Please describe usage of the project ?",
+  },
+  {
+    type: "input",
+    name: "licence",
+    message: "Please provide licence of project ?",
+  },
+  {
+    type: "input",
+    name: "contributation",
+    message: "Please write contributing of the project ?",
+  },
+];
+
+function writeToFile(fileName, data) {}
+
+function init() {
+  inquirer.prompt(questions).then((answers) => {
+    api.getUser(answers.gitHub).then(response=>{
+      console.log(response);
+      var data = { 
+        avatarUrl: response.data.avatar_url,
+        description: answers.description,
+        title: answers.projectTitle,
+        email: (response.data.email) ? response.data.email: "ppsdeora@gmail.com"
+      }
+      fs.writeFile("README.md", generateMarkdown(data), ()=>{});
+    })
+  });
+}
+
+init();
