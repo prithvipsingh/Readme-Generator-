@@ -4,12 +4,6 @@ var api = require("./utils/api");
 var inquirer = require("inquirer");
 
 const questions = [
-  
-  {
-    type: "input",
-    name: "gitHub",
-    message: "What is your github user name ?",
-  },
   {
     type: "input",
     name: "projectTitle",
@@ -22,7 +16,7 @@ const questions = [
   },
   {
     type: "input",
-    name: "TableOfcontents",
+    name: "tableOfcontents",
     message: "Please enter table of contents ?",
   },
   {
@@ -43,8 +37,26 @@ const questions = [
   },
   {
     type: "input",
-    name: "contributation",
+    name: "contribution",
     message: "Please write contributing of the project ?",
+  },
+  {
+    type: "input",
+    name: "test",
+    message: "Have done test of this project ?, please provide details",
+  },
+
+
+  {
+    type: "input",
+    name: "gitHub",
+    message: "What is your github user name ?"
+  },
+
+  {
+    type: "input",
+    name: "email",
+    message: "What is your github email ?",
   },
 ];
 
@@ -57,6 +69,13 @@ function init() {
         avatarUrl: response.data.avatar_url,
         description: answers.description,
         title: answers.projectTitle,
+        tableOfcontents: answers.tableOfcontents,
+        installation : answers.installation,
+        licence: answers.licence,
+        usage: answers.usage,
+        test: answers.test,
+        contribution: answers.contribution,
+
         email: (response.data.email) ? response.data.email: "ppsdeora@gmail.com"
       }
       fs.writeFile("README.md", generateMarkdown(data), ()=>{});
